@@ -30,7 +30,7 @@
 > c. Administrators
 > Administrators can use their interface to realize On-The-Air-Firmware-Update by simply pressing a button on the website. The update progress is shown on real time.
  
-> **Inspiration**
+> ### Inspiration
 > There are so many smart lock on the markets, why do we want to design another one? 
 >
 > **Price and Potential Customers Are What We Focus on**
@@ -41,10 +41,21 @@
 > 
 > Besides, in a modern world, everything is driven to be controlled remotely and everybody will use smart devices. Thus, since people need it, we build it.
 
-> **Device Functionality**
-
-> **Challenges**
+> ### Device Functionality
 > 
+
+> ### Challenges
+>
+> **Firmware**
+> 1. When we tested the QR code reader, the reader always returned all 0 data to MCU even if the I2C communication is normal. Later, we found although manufacturer says a register can be written to control the LED, the read-back data will be all 0 if we write to the register before.
+> Besides, the interval that the reader reads QR code matters. If we uses 400ms instead of 200ms, the read-back data is also 0.
+>
+> 2. We store a large QR code into a 2D array. However, If we define the array as a global variable, the memory is not enough. Thus, we moved it into a function so that it can be in the stack, then the stack has enough space to store the array.
+>
+> 3. When integrating all peripheral drivers together, the FreeRTOS stack always overflows. Thus, we had to ajusted the task size for each task. We should've used High WaterMark function to estimate the size of each task instead of just trying random task sizes.
+> 
+> **Hardware**
+> 1. 
 
 ## 3. Hardware & Software Requirements
 
