@@ -9,6 +9,8 @@
 
 ## 1. Video Presentation
 
+[![Final Project Demo Video](https://i.ytimg.com/vi/V_djxjseMkI/maxresdefault.jpg)](https://youtu.be/V_djxjseMkI "Final Project Demo Video")
+
 ## 2. Project Summary
 
 > ## Device Description
