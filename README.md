@@ -47,15 +47,32 @@
 > ### Challenges
 >
 > **Firmware**
-> 1. When we tested the QR code reader, the reader always returned all 0 data to MCU even if the I2C communication is normal. Later, we found although manufacturer says a register can be written to control the LED, the read-back data will be all 0 if we write to the register before.
-> Besides, the interval that the reader reads QR code matters. If we uses 400ms instead of 200ms, the read-back data is also 0.
+> 1. When we tested the QR code reader, the reader always returned 0s to MCU even if the I2C communication is normal. Later, we found although manufacturer says a register can be written to control the LED, the read-back data will be all 0 if we write to the register before we read from the reader.
+> Besides, the interval that the reader reads QR code also matters. If we uses 400ms instead of 200ms, the read-back data is also 0.
 >
 > 2. We store a large QR code into a 2D array. However, If we define the array as a global variable, the memory is not enough. Thus, we moved it into a function so that it can be in the stack, then the stack has enough space to store the array.
 >
-> 3. When integrating all peripheral drivers together, the FreeRTOS stack always overflows. Thus, we had to ajusted the task size for each task. We should've used High WaterMark function to estimate the size of each task instead of just trying random task sizes.
+> 3. When integrating all peripheral drivers together, the FreeRTOS stack always overflows. Thus, we had to adjusted the task size for each task. We should've used High WaterMark function to estimate the size of each task instead of just trying random task sizes.
 > 
 > **Hardware**
-> 1. 
+> 1. We didn't assign the SPI LCD screen pins to the Sercom specifically, so latrer our LCD cannot have normal communication between MCU. Thus, we rearranged the pin assignment for LCD and did rewirein work using unused test points of MCU pins.
+>
+> 2. We planned to use PA21 to generate PWM through TCC0, but it didn't give any output. Thus, we had to changed PA21 to PA10 which generated correct PWM pulse using TCC0.
+
+>### Prototype Learnings
+> 1. We did many rework and rewire. It resulted from many reasons. The first reason is that we didn't consider much about the functions of each pin when we did pin assignment. If we want to use I2C peripherals, we need to find Sercom pins instead of other random pins. Some pins have specific functionality so we need to do every single pin assignment according to what we want the pin to do.
+>
+> 2. Even if we assigned correct pins, sometimes they don't work correctly either. Thus, route every unused pins to testpoints! You don't want to stare at the MCU when you want to rewire but there is not testpoints on the board.
+Even if you already have jumpers for the power circuits, add test points as well! If the jumper pads are ruined, you still have testpoints! Adding testpoints not only helps test signals, but also help you much when you want to do rewiring work.
+> 
+>3. Please use tapes to fix the test wires onto the board, or you will 100% pull the pads off your board. Sometimes, you don't even know when the pads disappear. Therefore, use insulated tape to fix test wires onto the board in case the wires are pulled up with pads accidentally! After you don't need the test wires, just desolder them off the board.
+>
+>4. Arrange the locations of connectors on your PCB with deep consideration. You don't want the situation where you connect the peripheral into the connector and can never pull it out because another connector block the way that there is not space for your little fingers.
+Take us as an example, our QR code reader sometimes goes wrong, so we have to replug it into the connector. However, there is another LCD connector right next to it blocking our way, so we can hardly pull the QR code reader connector out after we plug it into the connector designed for it on the board. This time we are lucky, because we can replug the connector on the QR code reader itself instead of the one on the board, but what if the connector on the QR code is soldered so that we can only replug the connector to the board?
+>
+>5. Download the documentations you need from Microchip in case the website crashes for weeks!
+
+
 
 ## 3. Hardware & Software Requirements
 
