@@ -90,7 +90,7 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 > ### Takeaways from ESE5160
 > ESE5160 goes through the main parts of embedded system design flow, starting from coming up with new idea, to make the idea come to life. We need to decide what components can help realize our idea, which power regulators we need to use, what pins they will occupy. 
 > 
-> Then, we need to draw schematic to connect everything together, after which we design PCB where we need to work as a good "City Planner". We have to pay attention high speed signal routing, power routing and components placement, etc. During the PCB manufacture, we write drivers for each peripherals in advance and use our dev board to test their functionality. 
+> Then, we need to draw schematic to connect everything together, after which we design PCB where we need to work as a good "City Planner". We have to pay attention high speed signal routing, power routing and components placement, etc. During the PCB manufacture, we write drivers for each peripherals in advance and use our dev board to test their functionality. This is where we learn how FreeRTOS works and how different communication protocols work.
 > 
 > After the PCB comes back, we test power one by one and test functionality of button, LED, MCU, etc. This is where we learn how to desolder and solder components, using solder wick, flux, fly wires, ... Then, we integrate all peripherals to our customized PCB and we use Node-Red to realize remote control and monitoring through MQTT. 
 > 
