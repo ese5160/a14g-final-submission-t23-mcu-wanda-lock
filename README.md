@@ -96,7 +96,7 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 > 
 > Beyond these, we also learned how to implement basic bootloader and firmware update, especifically OTAFU through HTTP after we had Node-Red. 
 > 
-> Stepping out the electrical engineering world, we also worked as mechanical engineers. We 3D printed our customized PCB so that we could have a better understanding of how the PCB looks like and prepare a better and suitable casework. In the end, we designed and 3D printed a wonderful casework composing of three parts which acts as a door with all of our components (and even our names :))on it. 
+> Stepping out the electrical engineering world, we also worked as mechanical engineers. We 3D printed our customized PCB so that we could have a better understanding of how the PCB looks like and prepare a better and suitable casework. In the end, we designed and 3D printed a wonderful casework composing of three parts which acts as a door with all of our components (and even our names :))on it. We also learnt how to choose different material and hardness for 3D printing.
 > 
 > Reaching here, we have designed a portable IOT prototype which has desired function features including basic functions, WiFi, OTAFU as well as a desired machanical structure.
 
