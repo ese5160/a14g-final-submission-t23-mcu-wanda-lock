@@ -114,12 +114,12 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 ## 4. Project Photos & Screenshots
 
 ### Wanda Lock
-<img src="./graphs/casework_front.png " style="height: 600px;" width="45%"></img> <img src="./graphs/casework_side.png" style="height: 600px;" width="45%"></img> <img src="./graphs/casework_back.png" style="height: 600px;" width="45%"></img> <img src="./graphs/PCB_demo_day.png" style="height: 600px;" width="45%"></img> 
+<img src="./graphs/casework_front.png " style="height: 500px;" width="45%"></img> <img src="./graphs/casework_side.png" style="height: 500px;" width="45%"></img> <img src="./graphs/casework_back.png" style="height: 500px;" width="45%"></img> <img src="./graphs/PCB_demo_day.png" style="height: 500px;" width="45%"></img> 
 
 ### PCBA
-<img src="./graphs/PCB_2D.png" width="45%" style="height: 500px;"></img><img src="./graphs/PCB_3D_top.png" width="45%" style="height: 500px;"></img> <img src="./graphs/PCB_3D_bottom.png" width="45%" style="height: 500px;">   <img src="./graphs/PCB_top_view.png" width="45%" style="height: 500px;"></img> <img src="./graphs/PCB_bottom_view.png" width="45%" style="height: 500px;"></img> </img><img src="./graphs/thermal_image.png" width="45%" style="height: 500px;"></img>
+<img src="./graphs/PCB_2D.png" width="45%" style="height: 450px;"></img><img src="./graphs/PCB_3D_top.png" width="45%" style="height: 450px;"></img> <img src="./graphs/PCB_3D_bottom.png" width="45%" style="height: 400px;">   <img src="./graphs/PCB_top_view.png" width="45%" style="height: 400px;"></img> <img src="./graphs/PCB_bottom_view.png" width="45%" style="height: 400px;"></img> </img><img src="./graphs/thermal_image.png" width="45%" style="height: 400px;"></img>
 
 ### Node-RED
-<img src="./graphs/guest_ui.png" width="45%" style="height: 400px;"></img> <img src="./graphs/owner_ui.png" width="45%" style="height: 400px;"></img> <img src="./graphs/OTAFU_ui.png" width="45%" style="height: 400px;"></img> <img src="./graphs/MCU_sim_ui.png" width="45%" style="height: 400px;"></img> <img src="./graphs/node-red_test_ui.png" width="45%" style="height: 400px;"></img> <img src="./graphs/node-red_backend.png" width="45%" style="height: 400px;"></img> 
+<img src="./graphs/guest_ui.png" width="45%" style="height: 350px;"></img> <img src="./graphs/owner_ui.png" width="45%" style="height: 350px;"></img> <img src="./graphs/OTAFU_ui.png" width="45%" style="height: 350px;"></img> <img src="./graphs/MCU_sim_ui.png" width="45%" style="height: 350px;"></img> <img src="./graphs/node-red_test_ui.png" width="45%" style="height: 350px;"></img> <img src="./graphs/node-red_backend.png" width="45%" style="height: 350px;"></img> 
 
 ### System Block Diagram
