@@ -102,8 +102,11 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 
 > ### Project Links
 > [**Node-Red Front End**](http://172.200.111.7:1880/ui/)
+> 
 > [**Node-Red Back End**](http://172.200.111.7:1880/)
+> 
 > [**A12G Repo**](https://github.com/ese5160/a12g-firmware-drivers-t23-mcu-wanda-lock.git)
+> 
 > [**Altium 365 PCBA**](https://upenn-eselabs.365.altium.com/designs/F2C4BAE3-8C84-467B-8578-D5AC2398B9EF)
 
 ## 3. Hardware & Software Requirements
