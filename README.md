@@ -61,20 +61,35 @@
 >
 > 2. We planned to use PA21 to generate PWM through TCC0, but it didn't give any output. Thus, we had to changed PA21 to PA10 which generated correct PWM pulse using TCC0.
 
->### Prototype Learnings
+> ### Prototype Learnings
 > 1. We did many rework and rewire. It resulted from many reasons. The first reason is that we didn't consider much about the functions of each pin when we did pin assignment. If we want to use I2C peripherals, we need to find Sercom pins instead of other random pins. Some pins have specific functionality so we need to do every single pin assignment according to what we want the pin to do.
 >
 > 2. Even if we assigned correct pins, sometimes they don't work correctly either. Thus, route every unused pins to testpoints! You don't want to stare at the MCU when you want to rewire but there is not testpoints on the board.
 Even if you already have jumpers for the power circuits, add test points as well! If the jumper pads are ruined, you still have testpoints! Adding testpoints not only helps test signals, but also help you much when you want to do rewiring work.
 > 
->3. Please use tapes to fix the test wires onto the board, or you will 100% pull the pads off your board. Sometimes, you don't even know when the pads disappear. Therefore, use insulated tape to fix test wires onto the board in case the wires are pulled up with pads accidentally! After you don't need the test wires, just desolder them off the board.
+> 3. Please use tapes to fix the test wires onto the board, or you will 100% pull the pads off your board. Sometimes, you don't even know when the pads disappear. Therefore, use insulated tape to fix test wires onto the board in case the wires are pulled up with pads accidentally! After you don't need the test wires, just desolder them off the board.
 >
->4. Arrange the locations of connectors on your PCB with deep consideration. You don't want the situation where you connect the peripheral into the connector and can never pull it out because another connector block the way that there is not space for your little fingers.
+> 4. Arrange the locations of connectors on your PCB with deep consideration. You don't want the situation where you connect the peripheral into the connector and can never pull it out because another connector block the way that there is not space for your little fingers.
 Take us as an example, our QR code reader sometimes goes wrong, so we have to replug it into the connector. However, there is another LCD connector right next to it blocking our way, so we can hardly pull the QR code reader connector out after we plug it into the connector designed for it on the board. This time we are lucky, because we can replug the connector on the QR code reader itself instead of the one on the board, but what if the connector on the QR code is soldered so that we can only replug the connector to the board?
 >
->5. Download the documentations you need from Microchip in case the website crashes for weeks!
+> 5. Download the documentations you need from Microchip in case the website crashes for weeks!
 
+> ### Next Steps
+> 1. Although using QR code as ID verification is a unique section of our design, the QR code door key is static, which means it's still not really secure. Thus, we can use different QR code as the door key so that one QR code can only be used once.
+>
+> 2. We also used an QR code as a link to our Node-Red. However, this QR code drawed on the LCD screen pixel by pixel which means it wastes much space in memory to store the pixels of QR code. A better way is to store the QR code in the SD card and transfer the QR code directly to LCD screen.
+>
+> 3. Although the IR sensor is highly sensitive and accurate, it's better to have options of different detected distances, such as 10cm, 20cm, etc. For now, our detected distance is fixed.
+>
+> 4. The refresh rate of our LCD screen is slow now. We should come up a better communication between MCU and LCD to realize a faster LCD display.
+>
+> 5. For now, our servo motor acting as a door lock is closed after a fixed time interval when we open the lock. We can improve it by closing the lock only when the door is closed instead of being closed based on certain time interval.
+>
+> 6. We used FreeRTOS vDelayTasks function to have a certain delay. It worked well until we integrated all peripherals together. The delay became inaccurate, thus we should come up with a better way to control certain time delay.
 
+> ### Takeaways from ESE5160
+
+> ### Project Links
 
 ## 3. Hardware & Software Requirements
 
