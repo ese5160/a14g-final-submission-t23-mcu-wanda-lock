@@ -88,6 +88,17 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 > 6. We used FreeRTOS vDelayTasks function to have a certain delay. It worked well until we integrated all peripherals together. The delay became inaccurate, thus we should come up with a better way to control certain time delay.
 
 > ### Takeaways from ESE5160
+> ESE5160 goes through the main parts of embedded system design flow, starting from coming up with new idea, to make the idea come to life. We need to decide what components can help realize our idea, which power regulators we need to use, what pins they will occupy. 
+> 
+> Then, we need to draw schematic to connect everything together, after which we design PCB where we need to work as a good "City Planner". We have to pay attention high speed signal routing, power routing and components placement, etc. During the PCB manufacture, we write drivers for each peripherals in advance and use our dev board to test their functionality. 
+> 
+> After the PCB comes back, we test power one by one and test functionality of button, LED, MCU, etc. This is where we learn how to desolder and solder components, using solder wick, flux, fly wires, ... Then, we integrate all peripherals to our customized PCB and we use Node-Red to realize remote control and monitoring through MQTT. 
+> 
+> Beyond these, we also learned how to implement basic bootloader and firmware update, especifically OTAFU through HTTP after we had Node-Red. 
+> 
+> Stepping out the electrical engineering world, we also worked as mechanical engineers. We 3D printed our customized PCB so that we could have a better understanding of how the PCB looks like and prepare a better and suitable casework. In the end, we designed and 3D printed a wonderful casework composing of three parts which acts as a door with all of our components (and even our names :))on it. 
+> 
+> Reaching here, we have designed a portable IOT prototype which has desired function features including basic functions, WiFi, OTAFU as well as a desired machanical structure.
 
 > ### Project Links
 
