@@ -50,9 +50,11 @@
 <!-- > Our project is a smart door locking system that has functions for both guest and owner. Here is the work flow for our project: as the guest, when it is the first time to come the door, they can scan the qr code to fill in his/her information to make a request for the access. At the same time, owner will receive this request and can decide whether open the lock, and also store this guest's info to the database so that next time when the same person comes in, he/she get just type in his name or password to open the lock without the need for owner's permission. Once the owner approve the request, an email will send to guest includes the access QR-code, guest can just show this code to QR code reader to unlock the door! -->
 
 > Our project is a simple smart door lock system that makes access easy for both guests and owners:
+> 
 >**Guest Access Request**: When a guest arrives for the first time, they scan a QR code and fill in their information. This sends a request to the owner.
 >**Owner Approval**: The owner receives the request and decides whether to grant access. Also owner can store the guest's info for future visits.
 >**Access Granted**: Upon approval, the guest receives an email with an access QR code. They can just show it to the door's QR code reader to unlock it.
+>
 >With this system, guests can easily request access, owners can manage approvals, and access is granted seamlessly via QR codes.
 
 
@@ -72,9 +74,9 @@ servo motor: simulate the lock status, when motor moves, lock open. -->
 >
 >- **IR Sensor**: Detects if a guest approaches the door. When triggered, it activates the LCD screen to display information.
 >
->- **QR Code Reader**: Receives QR codes from guests. If the QR code matches stored information in the microcontroller, it signals the servo motor to unlock the door.
+>- **QR Code Reader**: Recognizes QR codes from guests. If the QR code matches stored information in the microcontroller, it signals the servo motor to unlock the door.
 >
->- **Buttons**: Guests use buttons to request access. Pressing the button triggers the LCD screen to display the QR code for scanning.
+>- **Buttons**: Guests use buttons to request access. Pressing the button triggers the LCD screen to display a QR code for scanning.
 >
 >- **LCD Screen**: Displays prompts and QR codes for guests to make access requests to the owner.
 >
@@ -93,16 +95,16 @@ servo motor: simulate the lock status, when motor moves, lock open. -->
 > 3. When integrating all peripheral drivers together, the FreeRTOS stack always overflows. Thus, we had to adjusted the task size for each task. We should've used High WaterMark function to estimate the size of each task instead of just trying random task sizes.
 > 
 > **Hardware**
-> 1. We didn't assign the SPI LCD screen pins to the Sercom specifically, so latrer our LCD cannot have normal communication between MCU. Thus, we rearranged the pin assignment for LCD and did rewirein work using unused test points of MCU pins.
+> 1. We didn't assign the SPI LCD screen pins to the Sercom specifically, so later our LCD cannot have normal communication between MCU. Thus, we rearranged the pin assignment for LCD and did rewiring work using test points for unused MCU pins.
 >
 > 2. We planned to use PA21 to generate PWM through TCC0, but it didn't give any output. Thus, we had to changed PA21 to PA10 which generated correct PWM pulse using TCC0.
 
 ### Prototype Learnings
 
-> 1. We did many rework and rewire. It resulted from many reasons. The first reason is that we didn't consider much about the functions of each pin when we did pin assignment. If we want to use I2C peripherals, we need to find Sercom pins instead of other random pins. Some pins have specific functionality so we need to do every single pin assignment according to what we want the pin to do.
+> 1. We did many rework and rewiring. It resulted from many reasons. The first reason is that we didn't consider much about the functions of each pin when we did pin assignment. If we want to use I2C peripherals, we need to find Sercom pins instead of other random pins. Some pins have specific functionality so we need to do careful pin assignment for every single pin according to what we want the pin to do.
 >
-> 2. Even if we assigned correct pins, sometimes they don't work correctly either. Thus, route every unused pins to testpoints! You don't want to stare at the MCU when you want to rewire but there is not testpoints on the board.
-Even if you already have jumpers for the power circuits, add test points as well! If the jumper pads are ruined, you still have testpoints! Adding testpoints not only helps test signals, but also help you much when you want to do rewiring work.
+> 2. Even if we assigned correct pins, sometimes they don't work correctly either. Thus, route every unused pins to testpoints! You don't want to stare at the MCU when you want to rewire but there is no testpoints on the board.
+Even if you already have jumpers for the power circuits, add test points as well! If the jumper pads are ruined, you still have testpoints! Adding testpoints not only helps test signals, but also help you out when you want to do rewiring work.
 > 
 > 3. Please use tapes to fix the test wires onto the board, or you will 100% pull the pads off your board. Sometimes, you don't even know when the pads disappear. Therefore, use insulated tape to fix test wires onto the board in case the wires are pulled up with pads accidentally! After you don't need the test wires, just desolder them off the board.
 >
@@ -113,29 +115,29 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 
 ### Next Steps
 
-> 1. Although using QR code as ID verification is a unique section of our design, the QR code door key is static, which means it's still not really secure. Thus, we can use different QR code as the door key so that one QR code can only be used once.
+> 1. Although using QR code as ID verification is a unique section of our design, the QR code door key is static, which means it's still not really secure. Thus, we should use different QR code as the door key so that one QR code can only be used once.
 >
-> 2. We also used an QR code as a link to our Node-Red. However, this QR code drawed on the LCD screen pixel by pixel which means it wastes much space in memory to store the pixels of QR code. A better way is to store the QR code in the SD card and transfer the QR code directly to LCD screen.
+> 2. We also used an QR code as a link to our Node-Red. However, this QR code drawed on the LCD screen pixel by pixel which means it wastes much space in memory to store the pixels of QR code. A better way is to store the QR code in the SD card of LCD and transfer the QR code directly to LCD screen.
 >
-> 3. Although the IR sensor is highly sensitive and accurate, it's better to have options of different detected distances, such as 10cm, 20cm, etc. For now, our detected distance is fixed.
->
-> 4. The refresh rate of our LCD screen is slow now. We should come up a better communication between MCU and LCD to realize a faster LCD display.
+> 3. The refresh rate of our LCD screen is slow now. We should come up a better communication between MCU and LCD to realize a faster LCD display.
+> 
+> 4. Although the IR sensor is highly sensitive and accurate, it's better to have options of different detected distances, such as 10cm, 20cm, etc. For now, our detected distance is fixed.
 >
 > 5. For now, our servo motor acting as a door lock is closed after a fixed time interval when we open the lock. We can improve it by closing the lock only when the door is closed instead of being closed based on certain time interval.
 >
-> 6. We used FreeRTOS vDelayTasks function to have a certain delay. It worked well until we integrated all peripherals together. The delay became inaccurate, thus we should come up with a better way to control certain time delay.
+> 6. We used FreeRTOS vDelayTasks function to have a certain delay. It worked well until we integrated all peripherals together. The delay became inaccurate, thus we should come up with a better way to generate accurate time delay.
 
 ### Takeaways from ESE5160
 
 > ESE5160 goes through the main parts of embedded system design flow, starting from coming up with new idea, to make the idea come to life. We need to decide what components can help realize our idea, which power regulators we need to use, what pins they will occupy. 
 > 
-> Then, we need to draw schematic to connect everything together, after which we design PCB where we need to work as a good "City Planner". We have to pay attention high speed signal routing, power routing and components placement, etc. During the PCB manufacture, we write drivers for each peripherals in advance and use our dev board to test their functionality. This is where we learn how FreeRTOS works and how different communication protocols work.
+> Then, we need to draw schematic to connect everything together, after which we design PCB where we need to work as a good "City Planner". We have to pay attention to high speed signal routing, power routing and components placement, etc. During the PCB manufacture, we write drivers for each peripherals in advance and use our dev board to test their functionality. This is where we learn how FreeRTOS and different communication protocols work.
 > 
-> After the PCB comes back, we test power one by one and test functionality of button, LED, MCU, etc. This is where we learn how to de-solder and solder components, using solder wick, flux, fly wires, ... Then, we integrate all peripherals to our customized PCB and we use Node-Red to realize remote control and monitoring through MQTT. 
+> After the PCB comes back, we test powers, do load tests and check thermal images one by one and test functionality of button, LED, MCU, WiFi, etc. This is where we learn how to de-solder and solder components, using solder wick, flux, fly wires, ... Then, we integrate all peripherals to our customized PCB and we use Node-Red to realize remote control and monitoring through MQTT. 
 > 
-> Beyond these, we also learned how to implement basic bootloader and firmware update, especially OTAFU through HTTP after we had Node-Red. 
+> Beyond these, we also learned how to implement basic bootloader and firmware update, especially OTAFU through HTTP and we can initiate OTAFU through Node-Red remotely based on MQTT. 
 > 
-> Stepping out the electrical engineering world, we also worked as mechanical engineers. We 3D printed our customized PCB so that we could have a better understanding of how the PCB looks like and prepare a better and suitable casework. In the end, we designed and 3D printed a wonderful casework composing of three parts which acts as a door with all of our components (and even our names :))on it. We also learnt how to choose different material and hardness for 3D printing.
+> Stepping out the electrical engineering world, we also worked as mechanical engineers. We 3D printed our customized PCB so that we could have a better understanding of how the PCB looks like and prepare a better and suitable casework. In the end, we designed and 3D printed a wonderful casework composing of three parts which acts as a door with all of our components (and even our names :)) on it. We also learnt how to choose different material and hardness for 3D printing.
 > 
 > Reaching here, we have designed a portable IOT prototype which has desired function features including basic functions, WiFi, OTAFU as well as a desired mechanical structure.
 
@@ -154,11 +156,11 @@ Take us as an example, our QR code reader sometimes goes wrong, so we have to re
 
 HRS01 - The foundation of this project shall rely on the SAMW25 microcontroller.
 
-> Partially Achieved. Whole project is designed and implemented based on **SAM D21**. We use the Dev-board SAMW25 (embedded with SAMD21 chip) for testing and debugging in the beginning of project.
+> Achieved. Whole project is designed and implemented based on **SAMW25**. We use the Dev-board SAMD21 (embedded with SAMW25 chip) for testing and debugging in the beginning of project.
 
 HRS02 - The IR Sensor TSOP38238 shall detect the proximity of a person to the door. The system will register anyone who remains close to the door for a duration of 3 seconds. The Sensor shall communicate with the microcontroller via GPIO bus.
 
-> Partially Achieved. We changed IR Sensor with the [MH Infrared Obstacle Sensor Module](https://einstronic.com/product/infrared-obstacle-sensor-module/) instead of TSOP38238. Anyone that close to the door will trigger the Infrared Module instantly. It indeed communicates with MCU via GPIO bus.
+> Partially Achieved. We changed IR Sensor with the [MH Infrared Obstacle Sensor Module](https://einstronic.com/product/infrared-obstacle-sensor-module/) instead of TSOP38238 which is actually an IR receiver instead of IR detector. Anyone that is close to the door will trigger the Infrared Module instantly. It indeed communicates with MCU via GPIO bus.
 
 HRS03 - A QR code Reader shall be employed to extract information from the code presented by the visitor. The Reader shall communicate with the microcontroller via GPIO bus.
 
@@ -170,17 +172,17 @@ HRS04 - The Servo-motor SG92R will act as a simulated lock. The motor shall be a
 
 HRS05 - A 1.8" diagonal LCD shall be used for the user interface. The display shall communicate with the microcontroller via I2C bus.
 
-> Achieved. We use LCD screen to show welcome messages in every cases and also the 25x25 QR-code. It indeed communicates with MCU via I2C bus.  
+> Partially achieved. We use LCD screen to show welcome messages in every cases and also the 25x25 QR-code. However, it communicates with MCU via SPI bus since we changed for another SPI LCD screen instead of the previous I2C LCD screen.
 
 ### SRS
 
 SRS 01 - The microcontroller should check the response of the infrared distance meter every 5 seconds and use 1bit to indicate whether there is a visitor coming.
 
-> Partially Achieved. The vTaskDelay function is not accurate in our project. Ideally we wanted to delay 5 seconds, but vTaskDelay(5000) cannot make stable 5 seconds delay. So we changed to vTaskDelay(999999) for a relative long delay.
+> Partially Achieved. The vTaskDelay function is not accurate in our project. Ideally we wanted to delay 5 seconds, but vTaskDelay(5000) cannot make stable 5 seconds delay. So we changed to vTaskDelay(999999) for a relative long delay which in practice presents around 1-2 mins actual delay.
 
 SRS 02 - If the microcontroller recognizes a visitor, it shall fetch a 80*80 URL QR code from the SD card (NVM with 256KB via SPI) and send it to the LCD screen.
 
-> Partially Achieved. We display the LCD screen with only 25*25 size QR code because of limited pixel on LCD. Also we didn't implement fetch the QR code from SD card. We just simply plotted the code pixel by pixel in the "for" loop. That's why displaying the code takes quite long time.
+> Partially Achieved. We display the LCD screen with only 25*25 size QR code because of limited pixels on LCD. Also we didn't implement fetching the QR code from SD card. We just simply plotted the code pixel by pixel in the "for" loop. That's why displaying the code takes quite long time.
 
 SRS 03 - Visitors should provide their name, password and email (< 150Bytes) in the user interface. If visitors click the "Request" button in the interface and the interface shall prompt a response to the microcontroller.
 
@@ -188,7 +190,7 @@ SRS 03 - Visitors should provide their name, password and email (< 150Bytes) in 
 
 SRS 04 - When the visitor makes response in the interface, the microcontroller shall receive the response and extract name, password and email from the response (into 3 char arrays).
 
-> Achieved. We used char arrays to store these 3 variables.
+> Achieved. We used char arrays to store these 3 information.
 
 SRS 05 - The microcontroller shall verify visitors' info with existed users' Info database and send control signal to the motor for the lock if verification passes. It shall be also capable of storing the info into memory that is an internal RAM with 32KB.
 
@@ -197,16 +199,17 @@ SRS 05 - The microcontroller shall verify visitors' info with existed users' Inf
 
 SRS 06 - If verification of info fails, microcontroller shall send the info and URL of owner interface to owner via email. Owner should make decision in the interface and microcontroller shall receive the response and send a QR code to visitors via email or via displaying on visitors website interface.
 
-> NOT Achieved. If verification of info fails, only the prompt message will show on the LCD screen and owner can just see the lock status remain off on his/her interface. If the visitor still want to get access to the lock, he/she should re-do the process for getting permission from owner. 
+> NOT Achieved. If verification of info fails, only the prompt message will show on the LCD screen and owner can just see the lock status remain off on his/her interface. If the visitor still want to get access to the lock, he/she should wait for the permission from owner. 
 
 SRS 07 - After visitors display the QR code to the QR code reader, the microcontroller shall receive the request and make decision to control the motor and the LCD screen shall display some prompted messages.
 
 > Achieved. If the information in QR code displayed by visitor has the same information as in MCU, it means this visitor use the right access QR-code so that MCU can control the motor on, display welcome message on LCD screen indicating the lock is open.
-If someone uses a random QR code, the info in this code is not corresponded to the info stored in MCU, the motor will not be triggered and message on LCD will show "Incorrect QR code!".
+> 
+>If someone uses a random QR code, the info in this code is not corresponded to the info stored in MCU, the motor will not be triggered and message on LCD will show "Incorrect QR code!".
 
 SRS 08 - The microcontroller shall track the status of the power of the board, Wi-Fi module and the lock by controlling three LED lights.
 
-> Achieved. All three LED will light accordingly.
+> Partially chieved. Only the power LED indicates correctly. We did not program the other two LEDs.
 
 SRS 09 - The microcontroller shall be capable of making LCD screen to present both QR code and messages.
 
@@ -214,8 +217,7 @@ SRS 09 - The microcontroller shall be capable of making LCD screen to present bo
 
 SRS 10 - The lock should have two modes to adapt either case of whether owner is at home or not.
 
-> NOT Achieved. Our lock is just either on or off using servo-motor.
-
+> NOT Achieved. Our lock is just either on or off using servo-motor and it's controlled by MCU or owner instead of being mannually opened.
 
 ## 4. Project Photos & Screenshots
 
@@ -233,4 +235,8 @@ SRS 10 - The lock should have two modes to adapt either case of whether owner is
 
 ### System Block Diagram
 
-![Block Diagram](/graphs/detailed%20block_v3.jpg)
+![Block Diagram](./graphs/detailed_block_v3.jpg)
+
+## 5. A12G Codebase
+
+> [**A12G Codebase**](https://github.com/ese5160/a12g-firmware-drivers-t23-mcu-wanda-lock.git)
